@@ -1,6 +1,7 @@
 import dbConnect from "@/lib/mongoose";
 import UserModel from "@/models/user.model";
 import bcrypt from 'bcryptjs';
+import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
     await dbConnect();
@@ -13,7 +14,7 @@ export async function POST(request: Request) {
 
             console.log("All fields are required")
 
-            return Response.json({
+            return NextResponse.json({
                 success: false,
                 message: "All fields are required"
             }, { status: 400})
@@ -23,7 +24,7 @@ export async function POST(request: Request) {
         if (existedUser) {
             console.log("User already exist");
             
-            return Response.json({
+            return NextResponse.json({
                 success: false,
                 message: "User already exist"
             }, { status: 400})
@@ -41,7 +42,7 @@ export async function POST(request: Request) {
 
         await newUser.save();
 
-        return Response.json({
+        return NextResponse.json({
             success: true,
             message: "User registered successfulyy",
             data: newUser
@@ -51,7 +52,7 @@ export async function POST(request: Request) {
     } catch (error) {
         console.log("Error registering user: ", error);
 
-        return Response.json(
+        return NextResponse.json(
             {
                 success: false,
                 message: "Error registering user"
