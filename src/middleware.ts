@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-    const protectedRoutes = ['/api/company/register-company', '/api/company/get-company','/api/get-companies'];
+    const protectedRoutes = ['/api/user/logout','/api/company/register-company', '/api/company/get-company','/api/get-companies', '/api/job/admin/get-jobs', '/api/job/admin/post-job','/api/job/student/get-job','/api/job/student/get-jobs','/api/application/admin/application-status','/api/application/admin/get-applicants','/api/student/applied-jobs','/api/student/apply-for-job'];
 
     // Check if the request is to one of the protected routes
     if (protectedRoutes.some((route) => request.nextUrl.pathname.startsWith(route))) {
