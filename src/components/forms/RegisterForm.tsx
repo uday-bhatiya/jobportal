@@ -159,10 +159,10 @@ export default function RegisterForm() {
                 />
 
                 {loading ? (
-                    <Button disabled>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Please wait
-                    </Button>
+                   <Button disabled className="rounded-xl bg-black border dark:border-white border-transparent text-white text-sm">
+                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                   Please wait
+                 </Button>
                 ) : (
                     <Button type="submit">Submit</Button>
                 )}

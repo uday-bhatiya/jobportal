@@ -29,9 +29,9 @@ export async function POST(request: NextRequest) {
         }
 
         const userId = user._id;
-        const { title, description, requirements, salary, experienceLevel, location, jobTitle, position, company } = await request.json();
+        const { title, description, requirements, salary, experienceLevel, location, jobType, position, company } = await request.json();
 
-        if (!title || !description || !salary || !experienceLevel || !location || !jobTitle || !position || !company) {
+        if (!title || !description || !salary || !experienceLevel || !location || !jobType || !position || !company) {
             return NextResponse.json({
                 success: false,
                 message: "All fields are required"
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
             salary,
             experienceLevel,
             location,
-            jobTitle,
+            jobType,
             position,
             company,
             createdBy: userId

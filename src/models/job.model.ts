@@ -7,7 +7,7 @@ export interface Job extends Document {
     salary: string;
     experienceLevel: string;
     location: string;
-    jobTitle: string;
+    jobType: string;
     position: string;
     company: mongoose.Schema.Types.ObjectId;
     createdBy: mongoose.Schema.Types.ObjectId;
@@ -38,7 +38,7 @@ const JobSchema: Schema<Job> = new Schema({
         type: String,
         required: true
     },
-    jobTitle: {
+    jobType: {
         type: String,
         required: true
     },

@@ -6,6 +6,7 @@ import UserModel from "@/models/user.model";
 import JobModel from "@/models/job.model";
 import mongoose from "mongoose";
 import CompanyModel from "@/models/company.model";
+import ApplicationModel from "@/models/application.model";
 
 export async function GET(request:NextRequest) {
     await dbConnect();
@@ -44,13 +45,12 @@ export async function GET(request:NextRequest) {
         }
         const userId = user._id;
 
-        const jobs = await JobModel.find({ createdBy: userId }).populate("company")
-        if (!jobs) {
-            return NextResponse.json({
-                success: false,
-                message: "No jobs found",
-            }, { status: 404 })
-        }
+        const jobs = await JobModel.find({ createdBy: userId })
+        .populate("company") // Populate company details
+        .populate({
+            path: "applications",
+            model: ApplicationModel, // Make sure your applications field references this model
+        });
 
         return NextResponse.json({
             success: true,

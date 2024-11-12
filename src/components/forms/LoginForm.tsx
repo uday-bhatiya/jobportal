@@ -57,8 +57,15 @@ export default function RegisterForm() {
     setLoading(true);
     try {
       const response = await axios.post('/api/user/login', values);
-      console.log(response);
-      router.push('/home');
+     
+      localStorage.setItem('token', response.data.token);
+      // console.log(response);
+      if (values.role === 'recruiter') {
+        router.push('/admin/companies');
+      } 
+      if (values.role === 'student') {
+        router.push('/home');
+      }
     } catch (error: any) {
       console.error(error);
       // Display the error message to the user
@@ -125,12 +132,12 @@ export default function RegisterForm() {
         />
 
         {loading ? (
-          <Button disabled>
+          <Button disabled className="rounded-xl bg-black border dark:border-white border-transparent text-white text-sm">
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             Please wait
           </Button>
         ) : (
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Login</Button>
         )}
       </form>
       <span className='text-white'>Dont' have an account? <Link className='text-blue-600' href='/register'>register</Link></span>

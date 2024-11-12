@@ -29,16 +29,16 @@ export async function POST(request: NextRequest) {
             }, { status: 404 });
         }
 
-        const { companyName } = await request.json();
+        const { name, description, website, location,  } = await request.json();
 
-        if (!companyName) {
+        if (!name || !description || !website || !location) {
             return NextResponse.json({
                 success: false,
-                message: "Company name is required"
+                message: "All feilds are required"
             }, { status: 400 });
         }
 
-        const existingCompany = await CompanyModel.findOne({ name: companyName });
+        const existingCompany = await CompanyModel.findOne({ name });
 
         if (existingCompany) {
             return NextResponse.json({
@@ -48,8 +48,11 @@ export async function POST(request: NextRequest) {
         }
 
         const company = await CompanyModel.create({
-            name: companyName,
-            userId: user._id
+            name,
+            description,
+            userId: user._id,
+            location,
+            website
         });
 
         return NextResponse.json({

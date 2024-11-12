@@ -15,25 +15,22 @@ export async function GET(request:NextRequest) {
     }
 
     try {
-        const jobId = request.nextUrl.pathname.split('/').pop();
+        const applicantId = request.nextUrl.pathname.split('/').pop();
         
-        const job = await JobModel.findById(jobId).sort({createdAt: -1}).populate({
-            path: 'applications',
-            populate: {
-                path: 'applicant'
-            }
+        const applicant = await ApplicationModel.findById(applicantId).sort({createdAt: -1}).populate({
+            path: 'applicant',
         });
-        if (!job) {
+        if (!applicant) {
             return NextResponse.json({
                 success: false,
-                message: "No job found"
+                message: "No applicant found"
             }, { status: 404 })
         }
 
         return NextResponse.json({
             success: true,
             message: "Applicant fetched successfully",
-            job
+            applicant
         }, { status: 200 })
         
     } catch (error: any) {

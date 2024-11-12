@@ -8,7 +8,7 @@ export async function GET(request:NextRequest) {
     try {
 
         const companyId = request.nextUrl.pathname.split('/').pop();
-        console.log(companyId)
+        // console.log(companyId)
         if (!companyId) {
             console.log("Company Id is required");
             return NextResponse.json({
